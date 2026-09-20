@@ -395,16 +395,19 @@ export default function GoogleSitesSesion() {
           </Reveal>
 
           <Reveal variant="up" delay={120} duration={600}>
-            <div className="bg-surface-container-lowest p-unit-lg shadow-sm flex flex-wrap items-center gap-unit-md">
-              <div className="flex items-start gap-unit-sm">
-                <span className="material-symbols-outlined text-primary text-[22px]">info</span>
-                <p className="font-body-sm text-body-sm text-on-surface-variant max-w-3xl">
-                  Nota de verificación: la URL fue validada al 20 de septiembre de 2026. El sitio está publicado bajo
-                  el dominio institucional <span className="font-bold text-on-surface">autonoma.edu.pe</span> con la
-                  ruta <span className="font-mono text-[12px]">/react/inicio</span>; la imagen superior es una captura
-                  de su pantalla de inicio. Su visualización directa exige la cuenta de correo institucional, por lo que
-                  se accede con el botón "Abrir el Sitio".
-                </p>
+            <div className="bg-surface-container-lowest p-unit-lg shadow-sm">
+              <div className="flex items-start justify-between gap-unit-md w-full">
+                <div className="flex items-start gap-unit-sm w-full">
+                  <span className="material-symbols-outlined text-primary text-[22px] shrink-0 mt-[2px]">info</span>
+                  <p className="flex-1 font-body-md text-body-md text-on-surface-variant text-justify">
+                    Nota de verificación: la URL fue validada al 20 de septiembre de 2026. El sitio está publicado bajo
+                    el dominio institucional <span className="font-bold text-on-surface">autonoma.edu.pe</span> con la
+                    ruta <span className="font-mono text-[12px]">/react/inicio</span> y está configurado con acceso
+                    <span className="font-bold text-on-surface"> público</span>: cualquier visitante puede visualizarlo
+                    desde el botón "Abrir el Sitio" sin credenciales adicionales. La imagen superior es una captura de
+                    su pantalla de inicio.
+                  </p>
+                </div>
               </div>
             </div>
           </Reveal>
