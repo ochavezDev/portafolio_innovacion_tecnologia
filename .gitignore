@@ -4,3 +4,4 @@ images/
 *:Zone.Identifier
 Thumbs.db
 .DS_Store
+.vercel

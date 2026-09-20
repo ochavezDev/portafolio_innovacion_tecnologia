@@ -5,6 +5,7 @@ import Proposito from './components/Proposito'
 import Estructura from './components/Estructura'
 import Autor from './components/Autor'
 import CuadernoDigital from './components/CuadernoDigital'
+import GoogleSitesSesion from './components/GoogleSitesSesion'
 import Footer from './components/Footer'
 
 function Landing() {
@@ -35,11 +36,23 @@ function Sesion1Page() {
   )
 }
 
+function Sesion2Page() {
+  return (
+    <>
+      <Header />
+      <main className="w-full pt-20 bg-surface">
+        <GoogleSitesSesion />
+      </main>
+    </>
+  )
+}
+
 export default function App() {
   return (
     <Routes>
       <Route index element={<Landing />} />
       <Route path="unidad-1/sesion-1" element={<Sesion1Page />} />
+      <Route path="unidad-1/sesion-2" element={<Sesion2Page />} />
     </Routes>
   )
 }

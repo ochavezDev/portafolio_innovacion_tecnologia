@@ -16,6 +16,13 @@ try {
   console.log(
     cMissing.length ? `CUADERNO MISSING: ${cMissing.join(', ')}` : `CUADERNO OK length=${cuaderno.length}`,
   )
+
+  const sites = renderToString(React.createElement(AppSSR, { entry: '/unidad-1/sesion-2' }))
+  const sChecks = ['Google Sites', 'Necesidades que Cubre', 'Paso a Paso', 'sites.google.com/autonoma.edu.pe/react/inicio', 'Abrir el Sitio']
+  const sMissing = sChecks.filter((c) => !sites.includes(c))
+  console.log(
+    sMissing.length ? `SESION2 MISSING: ${sMissing.join(', ')}` : `SESION2 OK length=${sites.length}`,
+  )
 } finally {
   await server.close()
 }

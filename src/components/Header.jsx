@@ -4,7 +4,7 @@ import { LOGO } from '../assets'
 
 const unidad1 = [
   { num: '[01]', title: 'Sesión 1', desc: 'Entorno Digital Institucional', to: '/unidad-1/sesion-1' },
-  { num: '[02]', title: 'Sesión 2', desc: 'Almacenamiento en la Nube y Trabajo Colaborativo', href: '#unidad-1-sesion-2' },
+  { num: '[02]', title: 'Sesión 2', desc: 'Almacenamiento en la Nube y Trabajo Colaborativo', to: '/unidad-1/sesion-2' },
   { num: '[03]', title: 'Sesión 3', desc: 'Visualización de Datos y Generación de Información con IA', href: '#unidad-1-sesion-3' },
 ]
 
