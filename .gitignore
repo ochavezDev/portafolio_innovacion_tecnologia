@@ -1,0 +1,6 @@
+node_modules/
+dist/
+images/
+*:Zone.Identifier
+Thumbs.db
+.DS_Store

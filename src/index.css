@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/*
+ * Scroll reveal
+ * Solamente se animan transform y opacity (GPU), transitions interrumpibles,
+ * timing via CSS custom properties por elemento.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--reveal-duration, 650ms) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--reveal-duration, 650ms) var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.reveal-down {
+  transform: translateY(-28px);
+}
+
+.reveal-left {
+  transform: translateX(28px);
+}
+
+.reveal-right {
+  transform: translateX(-28px);
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+/* Reveal por clip-path (imágenes, panels) — estética brutalista */
+.reveal-clip {
+  transform: none;
+  opacity: 1;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--reveal-duration, 900ms) var(--ease-in-out) var(--reveal-delay, 0ms);
+}
+
+.reveal.reveal-inview {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-clip.reveal-inview {
+  clip-path: inset(0 0 0 0);
+}
+
+/*
+ * Menú móvil — drawer superior deslizante
+ * Entrada seccional (ease-drawer), salida con transición propia; interruptible.
+ */
+.mobile-panel {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-16px);
+  transition:
+    transform 320ms var(--ease-drawer),
+    opacity 220ms var(--ease-out),
+    visibility 0s linear 320ms;
+}
+
+.mobile-panel.open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    transform 320ms var(--ease-drawer),
+    opacity 220ms var(--ease-out),
+    visibility 0s linear 0s;
+}
+
+.mobile-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 260ms var(--ease-out),
+    transform 260ms var(--ease-out);
+}
+
+.mobile-panel.open .mobile-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-clip {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition: none;
+  }
+  .mobile-panel,
+  .mobile-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .mobile-panel:not(.open) {
+    visibility: hidden;
+  }
+  .mobile-panel.open {
+    visibility: visible;
+  }
+}
