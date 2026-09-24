@@ -7,7 +7,6 @@ const SPREADSHEET_ID =
   import.meta.env.VITE_SHEETS_SPREADSHEET_ID || '1h36l0WyCCbHBawofK7zicNsAUfdIDQzAAEeVIQZeRbE'
 const SHEET_GID = import.meta.env.VITE_SHEETS_GID || '786191204'
 const TAB_NAME = import.meta.env.VITE_SHEETS_TAB || 'Respuestas de formulario 1'
-const REFRESH_MS = 15000
 
 const isConfigured = Boolean(SPREADSHEET_ID)
 
@@ -110,6 +109,7 @@ function isOpenQuestion(header) {
   return /comentario|observaci|sugere|justific/i.test(header)
 }
 
+const SURVEY_TOTAL = 15
 const SURVEY_URL = 'https://forms.gle/jY633fCRjp8NQDMH8'
 
 const AGE_RANKED = ['Menos de 18 años', 'Entre 18 y 30 años', 'Entre 31 y 45 años', 'Más de 45 años']
@@ -141,10 +141,6 @@ function buildQuestionStats(rows, colIndex, header, orderedLabels) {
         .sort((a, b) => b[1] - a[1])
         .map(([label, count]) => ({ label, count }))
   return { n, entries, isOpen }
-}
-
-function formatTime(d) {
-  return d.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
 }
 
 const liveBarColors = ['bg-primary', 'bg-tertiary', 'bg-secondary', 'bg-primary-container', 'bg-tertiary-container']
@@ -420,17 +416,6 @@ function SurveyLive() {
       return
     }
     load(true)
-    const id = setInterval(() => load(true), REFRESH_MS)
-    const onFocus = () => {
-      load(true)
-    }
-    window.addEventListener('focus', onFocus)
-    document.addEventListener('visibilitychange', onFocus)
-    return () => {
-      clearInterval(id)
-      window.removeEventListener('focus', onFocus)
-      document.removeEventListener('visibilitychange', onFocus)
-    }
   }, [])
 
   const questions = useMemo(() => {
@@ -477,8 +462,7 @@ function SurveyLive() {
           </ol>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
             Se registran en el archivo <span className="font-mono text-[12px]">.env</span> o como variables de
-            entorno de Vite; la vista consulta la hoja cada {Math.round(REFRESH_MS / 1000)} segundos para mantener
-            la comunicación activa con la encuesta.
+            entorno de Vite; la vista consulta la hoja de respuestas para mostrar los resultados finales de la encuesta.
           </p>
         </div>
       </Reveal>
@@ -543,28 +527,18 @@ function SurveyLive() {
       <Reveal variant="up" duration={600}>
         <div className="bg-surface-container-lowest p-unit-md shadow-sm flex flex-col sm:flex-row sm:items-center gap-unit-md justify-between">
           <div className="flex items-center gap-unit-sm min-w-0">
-            <span className="relative flex w-2.5 h-2.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-60"></span>
-              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-error"></span>
-            </span>
-            <span className="font-label-sm text-label-sm uppercase tracking-wider font-bold text-on-surface">Encuesta en Vivo</span>
+            <span className="w-2.5 h-2.5 shrink-0 rounded-full bg-outline"></span>
+            <span className="font-label-sm text-label-sm uppercase tracking-wider font-bold text-on-surface">Encuesta Cerrada</span>
             <span className="hidden md:inline-block text-outline">|</span>
             <span className="hidden md:inline-block font-body-sm text-body-sm text-on-surface-variant">
-              Google Forms → Google Sheets · auto-actualizado cada {Math.round(REFRESH_MS / 1000)} s
+              Google Forms → Google Sheets · resultados definitivos
             </span>
           </div>
           <div className="flex items-center gap-unit-sm flex-wrap">
             <span className="font-body-sm text-body-sm text-on-surface-variant">
-              Última actualización: <span className="font-mono text-[12px] text-on-surface">{state.updatedAt ? formatTime(state.updatedAt) : '—'}</span>
+              Recolección finalizada ·{' '}
+              <span className="font-mono text-[12px] text-on-surface">{firstColumnTotal} respuestas</span>
             </span>
-            <button
-              type="button"
-              onClick={() => load(true)}
-              className="inline-flex items-center gap-unit-2xs bg-surface-container text-on-surface border border-outline-variant px-unit-sm py-unit-xs font-label-sm text-label-sm uppercase font-bold tracking-wider hover:bg-surface-container-high transition-colors active:scale-[0.96]"
-            >
-              <span className="material-symbols-outlined text-[16px]">refresh</span>
-              Actualizar ahora
-            </button>
           </div>
         </div>
       </Reveal>
@@ -586,9 +560,9 @@ function SurveyLive() {
         </Reveal>
         <Reveal as="article" variant="up" delay={120} duration={550}>
           <div className="bg-surface-container-lowest p-unit-lg shadow-sm flex flex-col gap-unit-2xs h-full">
-            <span className="material-symbols-outlined text-secondary text-[22px]">sync</span>
-            <span className="font-headline-sm text-[15px] text-on-surface font-bold">EN VIVO</span>
-            <span className="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-bold">Conexión activa con la encuesta</span>
+            <span className="material-symbols-outlined text-secondary text-[22px]">lock</span>
+            <span className="font-headline-sm text-[15px] text-on-surface font-bold">CERRADA</span>
+            <span className="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-bold">Muestra definitiva · estudio completo</span>
           </div>
         </Reveal>
       </div>
@@ -645,61 +619,35 @@ function SurveyLive() {
   )
 }
 
-function SurveyInvite() {
-  const [copied, setCopied] = useState(false)
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(SURVEY_URL)
-    } catch {
-      const ta = document.createElement('textarea')
-      ta.value = SURVEY_URL
-      ta.style.position = 'fixed'
-      ta.style.opacity = '0'
-      document.body.appendChild(ta)
-      ta.select()
-      document.execCommand('copy')
-      document.body.removeChild(ta)
-    }
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+function SurveyClosed() {
   return (
     <Reveal variant="up" duration={550}>
-      <div className="bg-surface-container-lowest p-unit-lg shadow-sm flex flex-col xl:flex-row xl:items-center gap-unit-lg">
-        <div className="flex items-start gap-unit-md flex-1 min-w-0">
-          <span className="w-11 h-11 shrink-0 flex items-center justify-center bg-primary-container/20 text-primary">
-            <span className="material-symbols-outlined text-[22px]">assignment</span>
-          </span>
-          <div className="flex flex-col gap-unit-2xs min-w-0">
-            <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Participa en la encuesta</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant text-justify">
-              ¿Aún no respondes el cuestionario? Tus respuestas alimentan en tiempo real los cuadros estadísticos de
-              esta página. Son 10 preguntas y toma menos de 2 minutos.
-            </p>
-            <div className="mt-unit-xs flex items-center gap-unit-2xs bg-surface-container p-unit-xs w-fit max-w-full min-w-0">
+      <div className="bg-surface-container-lowest p-unit-lg shadow-sm flex items-start xl:items-center gap-unit-lg">
+        <span className="w-11 h-11 shrink-0 flex items-center justify-center bg-primary-container/20 text-primary">
+          <span className="material-symbols-outlined text-[22px]">check_circle</span>
+        </span>
+        <div className="flex flex-col gap-unit-2xs min-w-0">
+          <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Encuesta cerrada — ¡gracias por participar!</h3>
+          <p className="font-body-sm text-body-sm text-on-surface-variant text-justify">
+            El formulario finalizó su período de recolección y las 15 respuestas obtenidas constituyen la muestra
+            definitiva de esta página. Los cuadros estadísticos de esta sección presentan los resultados finales y la
+            conclusión (sección 03) sintetiza los hallazgos más relevantes del estudio.
+          </p>
+          <div className="mt-unit-xs flex flex-col sm:flex-row items-start sm:items-center gap-unit-2xs sm:gap-unit-xs flex-wrap">
+            <span className="inline-flex items-center gap-unit-2xs bg-surface-container p-unit-xs w-fit max-w-full min-w-0">
               <span className="material-symbols-outlined text-[16px] text-primary shrink-0">link</span>
               <span className="font-mono text-[12px] text-on-surface truncate min-w-0">{SURVEY_URL}</span>
-            </div>
+            </span>
+            <a
+              href={SURVEY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-unit-2xs bg-primary text-on-primary px-unit-sm py-unit-xs font-label-sm text-label-sm uppercase font-bold tracking-wider hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-[0.96]"
+            >
+              <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+              Ver las preguntas del formulario
+            </a>
           </div>
-        </div>
-        <div className="flex items-center gap-unit-xs shrink-0 flex-wrap">
-          <button
-            type="button"
-            onClick={copy}
-            className="inline-flex items-center gap-unit-2xs bg-surface-container text-on-surface border border-outline-variant px-unit-sm py-unit-xs font-label-sm text-label-sm uppercase font-bold tracking-wider hover:bg-surface-container-high transition-colors active:scale-[0.96]"
-          >
-            <span className="material-symbols-outlined text-[16px]">{copied ? 'check' : 'content_copy'}</span>
-            {copied ? '¡Copiado!' : 'Copiar enlace'}
-          </button>
-          <a
-            href={SURVEY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-unit-2xs bg-primary text-on-primary px-unit-sm py-unit-xs font-label-sm text-label-sm uppercase font-bold tracking-wider hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-[0.96]"
-          >
-            <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-            Resolver el cuestionario
-          </a>
         </div>
       </div>
     </Reveal>
@@ -840,25 +788,25 @@ export default function InteligenciaArtificialSesion() {
           </div>
         </section>
 
-        {/* Sección 02 — Encuesta en Vivo */}
+        {/* Sección 02 — Encuesta Final */}
         <section className="flex flex-col gap-unit-lg">
           <Reveal variant="up" duration={550}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-unit-xs">
               <div className="flex items-center gap-unit-xs">
                 <span className="font-headline-sm text-headline-sm font-bold text-on-surface bg-surface-container-high px-unit-xs py-unit-2xs">02</span>
                 <div>
-                  <h2 className="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Cuadros Estadísticos: Encuesta en Vivo</h2>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Gráficos variados por pregunta · sincronizado con Google Forms → Google Sheets</p>
+                  <h2 className="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Cuadros Estadísticos: Encuesta Final</h2>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">Gráficos variados por pregunta · resultados definitivos de Google Forms → Google Sheets</p>
                 </div>
               </div>
               <div className="inline-flex items-center gap-unit-2xs bg-surface-container-lowest px-unit-sm py-unit-xs shadow-sm">
-                <span className="w-2.5 h-2.5 bg-primary-container"></span>
-                <span className="font-label-sm text-label-sm font-bold text-on-surface uppercase">auto-actualizado</span>
+                <span className="w-2.5 h-2.5 bg-outline"></span>
+                <span className="font-label-sm text-label-sm font-bold text-on-surface uppercase">encuesta cerrada</span>
               </div>
             </div>
           </Reveal>
 
-          <SurveyInvite />
+          <SurveyClosed />
 
           <SurveyLive />
         </section>
@@ -882,17 +830,60 @@ export default function InteligenciaArtificialSesion() {
           </Reveal>
           <Reveal variant="up" delay={50} duration={600}>
             <div className="bg-surface-container-lowest p-unit-lg shadow-sm flex flex-col gap-unit-md">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-unit-md items-stretch">
+                <div className="bg-surface-container p-unit-md flex flex-col gap-unit-2xs">
+                  <span className="font-headline-md text-headline-md text-primary font-bold">{SURVEY_TOTAL} respuestas</span>
+                  <span className="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-bold">muestra final obtenida</span>
+                </div>
+                <div className="bg-surface-container p-unit-md flex flex-col gap-unit-2xs">
+                  <span className="font-headline-md text-headline-md text-primary font-bold">73%</span>
+                  <span className="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-bold">valora la IA como positiva</span>
+                </div>
+                <div className="bg-surface-container p-unit-md flex flex-col gap-unit-2xs">
+                  <span className="font-headline-md text-headline-md text-primary font-bold">60%</span>
+                  <span className="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-bold">usa IA varias veces a la semana</span>
+                </div>
+                <div className="bg-surface-container p-unit-md flex flex-col gap-unit-2xs">
+                  <span className="font-headline-md text-headline-md text-primary font-bold">73%</span>
+                  <span className="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-bold">avala regulación flexible</span>
+                </div>
+              </div>
+
               <p className="font-body-md text-body-md text-on-surface-variant text-justify">
-                La encuesta, todavía abierta, alimenta esta página de forma automática a través de Google Sheets; por
-                ello, la conclusión se actualiza junto con los cuadros estadísticos conforme llegan nuevas respuestas.
-                El análisis de los gráficos permite observar cuáles son las percepciones, preferencias y necesidades
-                más frecuentes de la población encuestada, así como la pregunta que mayor participación concita.
+                La encuesta cerró su período de recolección con <span className="font-bold text-on-surface">15 respuestas</span>,
+                que constituyen la muestra definitiva de esta página. El perfil predominante es el de adultos jóvenes en
+                etapa de formación y vida laboral: el <span className="font-bold text-on-surface">53% tiene entre 18 y 30
+                años</span> y el 33% entre 31 y 45; en cuanto a la ocupación, el 47% combina trabajo y estudio y el 40% se
+                dedica principalmente a trabajar.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant text-justify">
-                La IA aporta aquí de dos maneras: <span className="font-bold text-on-surface">organiza la información</span> al
-                convertir cada pregunta en un cuadro estadístico comparable, y <span className="font-bold text-on-surface">genera
-                información</span> al destacar los resultados de mayor consenso que orientan la interpretación final de la
-                encuesta. Los resultados completos se pueden consultar en la sección 02 de esta misma página.
+                En su relación con la IA, los participantes declaran un nivel de conocimiento intermedio (promedio cercano
+                a 3 en una escala del 1 al 5, valor elegido por el 53%), pero un uso habitual: el <span className="font-bold text-on-surface">60% emplea
+                herramientas de IA varias veces a la semana</span> y el 20% a diario. Las herramientas más usadas son
+                ChatGPT y Gemini (40% cada una), seguidas de Claude (20%).
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant text-justify">
+                La percepción sobre el avance de la IA es mayoritariamente favorable: el <span className="font-bold text-on-surface">73% de los
+                encuestados (11 de 15) lo considera positivo</span> —principal o muy positivo— y ninguno lo calificó como
+                negativo. No obstante, esta valoración convive con reservas concretas: la principal preocupación es la
+                dependencia excesiva de la tecnología (33%), seguida del reemplazo de puestos de trabajo (27%) y de la
+                difusión de información falsa o sesgada (20%).
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant text-justify">
+                Para afrontar esos riesgos, el <span className="font-bold text-on-surface">73% respalda una regulación legal o ética de la
+                IA</span>, aunque flexible para no frenar la innovación, y un 13% adicional la considera necesaria de forma
+                estricta e inmediata. La disposición a capacitarse es total: un tercio de los participantes lo haría de
+                forma prioritaria y los dos tercios restantes si encuentran un curso o taller de su interés.
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant text-justify">
+                Como síntesis, la IA es valorada como una <span className="font-bold text-on-surface">herramienta útil</span> —sobre todo para
+                generar ideas, apoyar la resolución de problemas y el aprendizaje, y ahorrar tiempo en tareas
+                repetitivas—, pero su adopción responsable exige combinar el entusiasmo por sus beneficios con
+                regulación, formación continua y atención a la dependencia tecnológica y al empleo. La IA aporta aquí de
+                dos maneras: <span className="font-bold text-on-surface">organiza la información</span>, al convertir cada pregunta en un cuadro
+                estadístico comparable, y <span className="font-bold text-on-surface">genera información</span>, al destacar los resultados de mayor
+                consenso que orientan esta interpretación. Los resultados completos se pueden consultar en la sección 02
+                de esta misma página.
               </p>
             </div>
           </Reveal>

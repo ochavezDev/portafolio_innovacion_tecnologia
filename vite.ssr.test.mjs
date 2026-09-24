@@ -25,7 +25,7 @@ try {
   )
 
   const ia = renderToString(React.createElement(AppSSR, { entry: '/unidad-1/sesion-3' }))
-  const iChecks = ['Inteligencia Artificial', 'Aporte a la Población', 'Casos de Uso', 'Encuesta en Vivo', 'Conclusión de los Resultados', 'Ilustración del Tema', 'Participa en la encuesta', 'forms.gle/jY633fCRjp8NQDMH8', 'Resolver el cuestionario']
+  const iChecks = ['Inteligencia Artificial', 'Aporte a la Población', 'Casos de Uso', 'Encuesta Final', 'Conclusión de los Resultados', 'Ilustración del Tema', 'Encuesta cerrada — ¡gracias por participar!', '15 respuestas', 'forms.gle/jY633fCRjp8NQDMH8', 'Ver las preguntas del formulario']
   const iMissing = iChecks.filter((c) => !ia.includes(c))
   console.log(
     iMissing.length ? `SESION3 MISSING: ${iMissing.join(', ')}` : `SESION3 OK length=${ia.length}`,
