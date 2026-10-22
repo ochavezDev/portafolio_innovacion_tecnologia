@@ -24,7 +24,7 @@ const unidades = [
     sesiones: [
       { num: '04', titulo: 'Sesión 4', desc: 'Creación de Organizadores Visuales y Presentaciones Interactivas' },
       { num: '05', titulo: 'Sesión 5', desc: 'Muro Colaborativo y Producción de Podcast' },
-      { num: '06', titulo: 'Sesión 6', desc: 'Marca Personal y Presencia Profesional en la Web' },
+      { num: '06', titulo: 'Sesión 6', desc: 'Revista Digital y Video Explicativo sobre Google Sites' },
     ],
     fase: 'Fase 2/2',
     sesionColor: 'text-primary-container',

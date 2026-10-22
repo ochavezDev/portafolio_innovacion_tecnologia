@@ -11,7 +11,7 @@ const unidad1 = [
 const unidad2 = [
   { num: '[04]', title: 'Sesión 4', desc: 'Creación de Organizadores Visuales y Presentaciones Interactivas', to: '/unidad-2/sesion-4' },
   { num: '[05]', title: 'Sesión 5', desc: 'Muro Colaborativo y Producción de Podcast', to: '/unidad-2/sesion-5' },
-  { num: '[06]', title: 'Sesión 6', desc: 'Marca Personal y Presencia Profesional en la Web', href: '#unidad-2-sesion-6' },
+  { num: '[06]', title: 'Sesión 6', desc: 'Revista Digital y Video Explicativo sobre Google Sites', to: '/unidad-2/sesion-6' },
 ]
 
 function Dropdown({ label, badge, items, active }) {

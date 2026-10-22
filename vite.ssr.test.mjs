@@ -44,6 +44,13 @@ try {
   console.log(
     mMissing.length ? `SESION5 MISSING: ${mMissing.join(', ')}` : `SESION5 OK length=${muro.length}`,
   )
+
+  const revista = renderToString(React.createElement(AppSSR, { entry: '/unidad-2/sesion-6' }))
+  const rChecks = ['Canva', 'Heyzine', 'Google Sites', 'Resumen de Herramientas Utilizadas', 'Trabajos Elaborados', 'Revista Digital: Innovación y Tecnología', 'Cómo crear un sitio web con Google Sites', 'Abrir la Revista', 'Ver en Drive', 'Código QR', 'heyzine.com/flip-book/2c2164833a.html#page/1', 'drive.google.com/file/d/13CVeNaCjdlmD8Xuv1hasXt8SZAJCzhCf/view?usp=sharing', 'VideoExplicativo_GoogleSites_V02.mp4']
+  const rMissing = rChecks.filter((c) => !revista.includes(c))
+  console.log(
+    rMissing.length ? `SESION6 MISSING: ${rMissing.join(', ')}` : `SESION6 OK length=${revista.length}`,
+  )
 } finally {
   await server.close()
 }

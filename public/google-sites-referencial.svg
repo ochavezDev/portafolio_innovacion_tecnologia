@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Video explicativo sobre Google Sites</title>
+  <desc id="desc">Ilustración referencial de la herramienta Google Sites: ventana del editor con bloques de contenido y botón de publicación, con un botón de reproducción que representa el video tutorial.</desc>
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07121f"/>
+      <stop offset="0.55" stop-color="#0b1c30"/>
+      <stop offset="1" stop-color="#102a3d"/>
+    </linearGradient>
+    <linearGradient id="brillo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06b6d4" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="rejilla" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#4cd7f6" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <filter id="sombra" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="sombraSuave" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="720" fill="url(#fondo)"/>
+  <rect width="1200" height="720" fill="url(#rejilla)"/>
+  <circle cx="1090" cy="80" r="260" fill="url(#brillo)"/>
+  <circle cx="120" cy="660" r="220" fill="url(#brillo)"/>
+
+  <g font-family="'Hanken Grotesk', 'Segoe UI', Arial, sans-serif">
+    <g transform="translate(72 70)">
+      <rect width="10" height="10" fill="#4cd7f6"/>
+      <text x="22" y="10" font-size="13" letter-spacing="4" font-weight="700" fill="#4cd7f6">VIDEO EXPLICATIVO</text>
+    </g>
+    <text x="72" y="146" font-family="'Space Grotesk', 'Segoe UI', Arial, sans-serif" font-size="52" font-weight="700" fill="#f8f9ff" letter-spacing="-1.5">Google Sites</text>
+    <text x="72" y="184" font-size="19" fill="#a9bcd4">De la idea a un sitio web publicado</text>
+
+    <g transform="translate(72 250)" font-size="15" fill="#dbe9f7">
+      <g transform="translate(0 0)">
+        <rect width="18" height="18" fill="#06b6d4" fill-opacity="0.18" stroke="#06b6d4" stroke-width="1"/>
+        <path d="M5 9.5l3 3 5.5-6" fill="none" stroke="#4cd7f6" stroke-width="1.6"/>
+        <text x="30" y="14">Crear el sitio</text>
+      </g>
+      <g transform="translate(0 44)">
+        <rect width="18" height="18" fill="#06b6d4" fill-opacity="0.18" stroke="#06b6d4" stroke-width="1"/>
+        <path d="M5 9.5l3 3 5.5-6" fill="none" stroke="#4cd7f6" stroke-width="1.6"/>
+        <text x="30" y="14">Elegir plantilla</text>
+      </g>
+      <g transform="translate(0 88)">
+        <rect width="18" height="18" fill="#06b6d4" fill-opacity="0.18" stroke="#06b6d4" stroke-width="1"/>
+        <path d="M5 9.5l3 3 5.5-6" fill="none" stroke="#4cd7f6" stroke-width="1.6"/>
+        <text x="30" y="14">Agregar páginas</text>
+      </g>
+      <g transform="translate(0 132)">
+        <rect width="18" height="18" fill="#06b6d4" fill-opacity="0.18" stroke="#06b6d4" stroke-width="1"/>
+        <path d="M5 9.5l3 3 5.5-6" fill="none" stroke="#4cd7f6" stroke-width="1.6"/>
+        <text x="30" y="14">Publicar en la web</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(472 118)" filter="url(#sombra)">
+    <rect width="656" height="500" rx="10" fill="#ffffff"/>
+    <path d="M0 10a10 10 0 0 1 10-10h636a10 10 0 0 1 10 10v38H0z" fill="#eef3fb"/>
+    <g transform="translate(20 24)">
+      <circle r="5" fill="#ea4335"/>
+      <circle cx="16" r="5" fill="#fbbc04"/>
+      <circle cx="32" r="5" fill="#34a853"/>
+      <circle cx="48" r="5" fill="#4285f4"/>
+    </g>
+    <g transform="translate(96 14)">
+      <rect width="440" height="30" rx="15" fill="#ffffff" stroke="#d7e1ee"/>
+      <circle cx="18" cy="15" r="5" fill="none" stroke="#7d8fa5" stroke-width="1.5"/>
+      <path d="M22 19l4 4" stroke="#7d8fa5" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="36" y="19" font-family="'Hanken Grotesk', Arial, sans-serif" font-size="12" fill="#51637a">sites.google.com/view/portafolio</text>
+    </g>
+    <g transform="translate(560 14)">
+      <rect width="78" height="30" rx="4" fill="#673ab7"/>
+      <text x="39" y="19" text-anchor="middle" font-family="'Hanken Grotesk', Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Publicar</text>
+    </g>
+
+    <g transform="translate(0 48)">
+      <rect width="132" height="452" fill="#f7f9fd"/>
+      <line x1="132" y1="0" x2="132" y2="452" stroke="#e3eaf5"/>
+      <text x="18" y="30" font-family="'Space Grotesk', Arial, sans-serif" font-size="10" letter-spacing="1.5" font-weight="700" fill="#8a9bb0">INSERTAR</text>
+      <g font-family="'Hanken Grotesk', Arial, sans-serif" font-size="12" fill="#40536a">
+        <rect x="14" y="44" width="104" height="28" rx="4" fill="#e8eefb"/>
+        <text x="26" y="62">Texto</text>
+        <text x="26" y="94">Imágenes</text>
+        <text x="26" y="122">Secciones</text>
+        <text x="26" y="150">Enlaces</text>
+        <text x="26" y="178">YouTube</text>
+        <text x="26" y="206">Drive</text>
+      </g>
+      <text x="18" y="250" font-family="'Space Grotesk', Arial, sans-serif" font-size="10" letter-spacing="1.5" font-weight="700" fill="#8a9bb0">PÁGINAS</text>
+      <g font-family="'Hanken Grotesk', Arial, sans-serif" font-size="11" fill="#5b6c81">
+        <circle cx="22" cy="270" r="3" fill="#673ab7"/>
+        <text x="32" y="274">Inicio</text>
+        <circle cx="22" cy="294" r="3" fill="#b9c6d8"/>
+        <text x="32" y="298">Sobre mí</text>
+        <circle cx="22" cy="318" r="3" fill="#b9c6d8"/>
+        <text x="32" y="322">Proyectos</text>
+        <circle cx="22" cy="342" r="3" fill="#b9c6d8"/>
+        <text x="32" y="346">Contacto</text>
+      </g>
+      <g transform="translate(18 392)">
+        <rect width="96" height="34" rx="4" fill="#ffffff" stroke="#cfdaea"/>
+        <text x="48" y="21" text-anchor="middle" font-family="'Hanken Grotesk', Arial, sans-serif" font-size="11" fill="#40536a">+ Nueva página</text>
+      </g>
+    </g>
+
+    <g transform="translate(132 48)">
+      <rect width="524" height="452" fill="#eef2f9"/>
+      <g transform="translate(28 26)" filter="url(#sombraSuave)">
+        <rect width="468" height="400" rx="6" fill="#ffffff"/>
+        <rect width="468" height="150" fill="#0b1c30"/>
+        <circle cx="420" cy="34" r="56" fill="#06b6d4" fill-opacity="0.22"/>
+        <circle cx="386" cy="106" r="34" fill="#4cd7f6" fill-opacity="0.25"/>
+        <text x="28" y="52" font-family="'Hanken Grotesk', Arial, sans-serif" font-size="10" letter-spacing="2" font-weight="700" fill="#4cd7f6">MI SITIO WEB</text>
+        <rect x="28" y="66" width="250" height="14" rx="2" fill="#f8f9ff"/>
+        <rect x="28" y="88" width="180" height="14" rx="2" fill="#f8f9ff" fill-opacity="0.7"/>
+        <rect x="28" y="114" width="92" height="24" rx="3" fill="#06b6d4"/>
+
+        <g transform="translate(28 178)">
+          <text font-family="'Space Grotesk', Arial, sans-serif" font-size="13" font-weight="700" fill="#0b1c30">Contenido del sitio</text>
+          <g transform="translate(0 18)">
+            <g>
+              <rect width="128" height="112" rx="4" fill="#f4f7fc" stroke="#e2e9f4"/>
+              <rect x="10" y="10" width="108" height="48" rx="3" fill="#cfe9f1"/>
+              <rect x="10" y="68" width="86" height="7" rx="2" fill="#8fa3ba"/>
+              <rect x="10" y="82" width="64" height="7" rx="2" fill="#c3cfdd"/>
+            </g>
+            <g transform="translate(148 0)">
+              <rect width="128" height="112" rx="4" fill="#f4f7fc" stroke="#e2e9f4"/>
+              <rect x="10" y="10" width="108" height="48" rx="3" fill="#e6def7"/>
+              <rect x="10" y="68" width="94" height="7" rx="2" fill="#8fa3ba"/>
+              <rect x="10" y="82" width="58" height="7" rx="2" fill="#c3cfdd"/>
+            </g>
+            <g transform="translate(296 0)">
+              <rect width="128" height="112" rx="4" fill="#f4f7fc" stroke="#e2e9f4"/>
+              <rect x="10" y="10" width="108" height="48" rx="3" fill="#d6efd9"/>
+              <rect x="10" y="68" width="78" height="7" rx="2" fill="#8fa3ba"/>
+              <rect x="10" y="82" width="68" height="7" rx="2" fill="#c3cfdd"/>
+            </g>
+          </g>
+          <g transform="translate(0 150)">
+            <rect width="424" height="38" rx="4" fill="#f4f7fc" stroke="#e2e9f4"/>
+            <text x="14" y="24" font-family="'Hanken Grotesk', Arial, sans-serif" font-size="11" fill="#7d8fa5">Arrastra bloques desde el panel izquierdo para construir tu página</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(800 368)">
+    <circle r="62" fill="#0b1c30" fill-opacity="0.62" stroke="#ffffff" stroke-opacity="0.9" stroke-width="2"/>
+    <circle r="74" fill="none" stroke="#4cd7f6" stroke-opacity="0.55" stroke-width="1.5"/>
+    <path d="M-14 -22L30 0L-14 22Z" fill="#ffffff"/>
+  </g>
+
+  <g font-family="'Hanken Grotesk', Arial, sans-serif">
+    <text x="72" y="612" font-size="12" letter-spacing="2.5" font-weight="700" fill="#7f93aa">TUTORIAL PASO A PASO</text>
+    <text x="72" y="644" font-size="16" fill="#dbe9f7">Crear, estructurar y publicar un sitio con Google Sites</text>
+    <g transform="translate(1036 650)">
+      <rect width="92" height="34" rx="4" fill="#06b6d4"/>
+      <text x="46" y="22" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#04222a">VER VIDEO</text>
+    </g>
+  </g>
+</svg>

@@ -9,6 +9,7 @@ import GoogleSitesSesion from './components/GoogleSitesSesion'
 import InteligenciaArtificialSesion from './components/InteligenciaArtificialSesion'
 import GeniallySesion from './components/GeniallySesion'
 import PadletPodcastSesion from './components/PadletPodcastSesion'
+import RevistaVideoSesion from './components/RevistaVideoSesion'
 import Footer from './components/Footer'
 
 function Landing() {
@@ -83,6 +84,17 @@ function Sesion5Page() {
   )
 }
 
+function Sesion6Page() {
+  return (
+    <>
+      <Header />
+      <main className="w-full pt-20 bg-surface">
+        <RevistaVideoSesion />
+      </main>
+    </>
+  )
+}
+
 export default function App() {
   return (
     <Routes>
@@ -92,6 +104,7 @@ export default function App() {
       <Route path="unidad-1/sesion-3" element={<Sesion3Page />} />
       <Route path="unidad-2/sesion-4" element={<Sesion4Page />} />
       <Route path="unidad-2/sesion-5" element={<Sesion5Page />} />
+      <Route path="unidad-2/sesion-6" element={<Sesion6Page />} />
     </Routes>
   )
 }
