@@ -7,6 +7,7 @@ import Autor from './components/Autor'
 import CuadernoDigital from './components/CuadernoDigital'
 import GoogleSitesSesion from './components/GoogleSitesSesion'
 import InteligenciaArtificialSesion from './components/InteligenciaArtificialSesion'
+import GeniallySesion from './components/GeniallySesion'
 import Footer from './components/Footer'
 
 function Landing() {
@@ -59,6 +60,17 @@ function Sesion3Page() {
   )
 }
 
+function Sesion4Page() {
+  return (
+    <>
+      <Header />
+      <main className="w-full pt-20 bg-surface">
+        <GeniallySesion />
+      </main>
+    </>
+  )
+}
+
 export default function App() {
   return (
     <Routes>
@@ -66,6 +78,7 @@ export default function App() {
       <Route path="unidad-1/sesion-1" element={<Sesion1Page />} />
       <Route path="unidad-1/sesion-2" element={<Sesion2Page />} />
       <Route path="unidad-1/sesion-3" element={<Sesion3Page />} />
+      <Route path="unidad-2/sesion-4" element={<Sesion4Page />} />
     </Routes>
   )
 }

@@ -9,7 +9,7 @@ const unidad1 = [
 ]
 
 const unidad2 = [
-  { num: '[04]', title: 'Sesión 4', desc: 'Creación de Organizadores Visuales y Presentaciones Interactivas', href: '#unidad-2-sesion-4' },
+  { num: '[04]', title: 'Sesión 4', desc: 'Creación de Organizadores Visuales y Presentaciones Interactivas', to: '/unidad-2/sesion-4' },
   { num: '[05]', title: 'Sesión 5', desc: 'Edición de Vídeos y Producción Audiovisual', href: '#unidad-2-sesion-5' },
   { num: '[06]', title: 'Sesión 6', desc: 'Marca Personal y Presencia Profesional en la Web', href: '#unidad-2-sesion-6' },
 ]
@@ -235,7 +235,9 @@ export default function Header() {
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
-  const isUnitActive = location.pathname.startsWith('/unidad-1')
+  const isUnit1Active = location.pathname.startsWith('/unidad-1')
+  const isUnit2Active = location.pathname.startsWith('/unidad-2')
+  const isUnitActive = isUnit1Active || isUnit2Active
 
   const isActive = (path) => {
     if (isUnitActive) return false
@@ -281,8 +283,8 @@ export default function Header() {
                 {item.label}
               </a>
             ))}
-            <Dropdown label="Unidad 1" badge="Unidad Curricular 01" items={unidad1} active={isUnitActive} />
-            <Dropdown label="Unidad 2" badge="Unidad Curricular 02" items={unidad2} />
+            <Dropdown label="Unidad 1" badge="Unidad Curricular 01" items={unidad1} active={isUnit1Active} />
+            <Dropdown label="Unidad 2" badge="Unidad Curricular 02" items={unidad2} active={isUnit2Active} />
           </nav>
 
           <button
@@ -373,6 +375,7 @@ export default function Header() {
             onToggle={() => setOpenUnit((v) => (v === 'u2' ? null : 'u2'))}
             onNavigate={() => setMobileOpen(false)}
             delay={staggerDelay(3)}
+            active={isUnit2Active}
           />
         </div>
       </aside>

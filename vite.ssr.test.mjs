@@ -30,6 +30,13 @@ try {
   console.log(
     iMissing.length ? `SESION3 MISSING: ${iMissing.join(', ')}` : `SESION3 OK length=${ia.length}`,
   )
+
+  const genially = renderToString(React.createElement(AppSSR, { entry: '/unidad-2/sesion-4' }))
+  const gChecks = ['Genially', 'Introducción a Genially', 'Necesidades que Cubre', 'Paso a Paso', '6 Pasos', 'Mi Presentación', 'view.genially.com/6ada3ff7ad0d4ae6a81c5c2d', 'Abrir la Presentación', 'El Trabajo Informal en el Perú']
+  const gMissing = gChecks.filter((c) => !genially.includes(c))
+  console.log(
+    gMissing.length ? `SESION4 MISSING: ${gMissing.join(', ')}` : `SESION4 OK length=${genially.length}`,
+  )
 } finally {
   await server.close()
 }
