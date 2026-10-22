@@ -37,6 +37,13 @@ try {
   console.log(
     gMissing.length ? `SESION4 MISSING: ${gMissing.join(', ')}` : `SESION4 OK length=${genially.length}`,
   )
+
+  const muro = renderToString(React.createElement(AppSSR, { entry: '/unidad-2/sesion-5' }))
+  const mChecks = ['Padlet', 'NotebookLM', 'Resumen de Herramientas Utilizadas', 'Trabajos Elaborados', 'Empleo informal y emprendimiento juvenil en el Perú', 'Informalidad juvenil peruana ¿oportunidad o supervivencia?', 'Abrir el Muro', 'Escuchar el Podcast', 'padlet.com/chavezorlho6/empleo-informal-y-emprendimiento-juvenil-en-el-peru-s024r5ldnmimp72q40j5', 'notebooklm.link.google/i6oUng35B384']
+  const mMissing = mChecks.filter((c) => !muro.includes(c))
+  console.log(
+    mMissing.length ? `SESION5 MISSING: ${mMissing.join(', ')}` : `SESION5 OK length=${muro.length}`,
+  )
 } finally {
   await server.close()
 }
